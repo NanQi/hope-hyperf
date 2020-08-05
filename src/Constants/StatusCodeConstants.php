@@ -9,17 +9,21 @@ use Hyperf\Constants\Annotation\Constants;
 
 /**
  * @Constants
- * @method static getMessage(int $errCode)
  */
 class StatusCodeConstants extends BaseConstants
 {
     /**
      * @Message("服务异常，请稍后尝试")
      */
-    const SERVER_ERROR = 500;
+    const S_500_SERVER_ERROR = 500;
 
     /**
      * @Message("未授权，请重新登录")
      */
-    const UNAUTHORIZED = 401;
+    const S_401_UNAUTHORIZED = 401;
+
+    /**
+     * @Message("错误的请求")
+     */
+    const S_400_BAD_REQUEST = 400;
 }

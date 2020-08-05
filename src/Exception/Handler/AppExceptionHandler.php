@@ -22,6 +22,6 @@ class AppExceptionHandler extends BaseExceptionHandler
             $this->logger->error($throwable->getTraceAsString());
         }
 
-        return $this->errorResponse($response, StatusCodeConstants::SERVER_ERROR, $throwable->getMessage());
+        return $this->errorResponse($response, StatusCodeConstants::S_500_SERVER_ERROR, $throwable->getMessage());
     }
 }

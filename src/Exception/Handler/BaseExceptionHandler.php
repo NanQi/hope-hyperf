@@ -27,7 +27,7 @@ class BaseExceptionHandler extends ExceptionHandler
 
     public function handle(Throwable $throwable, ResponseInterface $response)
     {
-        return $this->errorResponse($response, StatusCodeConstants::SERVER_ERROR, StatusCodeConstants::getMessage(StatusCodeConstants::SERVER_ERROR));
+        return $this->errorResponse($response, StatusCodeConstants::S_500_SERVER_ERROR, StatusCodeConstants::getMessage(StatusCodeConstants::S_500_SERVER_ERROR));
     }
 
     protected function errorResponse(ResponseInterface $response,

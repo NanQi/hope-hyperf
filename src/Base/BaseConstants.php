@@ -10,6 +10,7 @@ use Hyperf\Constants\AbstractConstants;
 /**
  * Class BaseConstants
  * @package NanQi\Hope\Base
+ * @method static getMessage($code)
  */
 abstract class BaseConstants extends AbstractConstants
 {

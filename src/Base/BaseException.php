@@ -9,4 +9,5 @@ use Hyperf\Server\Exception\ServerException;
 
 abstract class BaseException extends ServerException
 {
+
 }
