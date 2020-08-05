@@ -3,6 +3,7 @@
     "type": "library",
     "description": "Hyperf基础API支持",
     "keywords": ["hyperf", "hope", "api"],
+    "minimum-stability": "dev",
     "authors": [
         {
             "name": "NanQi",
@@ -20,7 +21,8 @@
         "hyperf/metric": "^2.0",
         "hyperf/circuit-breaker": "^2.0",
         "hyperf/db-connection": "~2.0.0",
-        "lcobucci/jwt": "^3.3"
+        "lcobucci/jwt": "^3.3",
+        "ext-json": "*"
     },
     "require-dev": {
         "ext-json": "*",

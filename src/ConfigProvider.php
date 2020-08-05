@@ -6,6 +6,7 @@ use Hyperf\Contract\StdoutLoggerInterface;
 use Hyperf\HttpServer\Exception\Handler\HttpExceptionHandler;
 use Hyperf\Server\CoroutineServer;
 use Hyperf\Validation\Middleware\ValidationMiddleware;
+use NanQi\Hope\Aspect\ResponseAspect;
 use NanQi\Hope\Exception\Handler\AppExceptionHandler;
 use NanQi\Hope\Exception\Handler\ValidationExceptionHandler;
 use NanQi\Hope\Overwrite\StdoutLogger;
@@ -15,6 +16,9 @@ class ConfigProvider
     public function __invoke(): array
     {
         return [
+            'aspects'=>[
+                ResponseAspect::class
+            ],
             'dependencies' => [
                 StdoutLoggerInterface::class => StdoutLogger::class
             ],
