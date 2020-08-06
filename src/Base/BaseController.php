@@ -16,12 +16,6 @@ abstract class BaseController
 
     /**
      * @Inject
-     * @var ContainerInterface
-     */
-    protected $container;
-
-    /**
-     * @Inject
      * @var RequestInterface
      */
     protected $request;
