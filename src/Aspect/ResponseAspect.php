@@ -25,6 +25,8 @@ class ResponseAspect extends AbstractAspect
 	    Response::class . '::json'
 	];
 
+	const SOAR_PATH = "vendor/bin/soar";
+
     /**
      * @var Soar
      */
@@ -34,7 +36,7 @@ class ResponseAspect extends AbstractAspect
     {
         $config = [
             // 下载的 soar 的路径
-            '-soar-path' => 'vendor/bin/soar',
+            '-soar-path' => self::SOAR_PATH,
             // 测试环境配置
             '-test-dsn' => [
                 'host' => env('DB_HOST', 'localhost'),
@@ -62,7 +64,7 @@ class ResponseAspect extends AbstractAspect
 	 */
 	public function process(ProceedingJoinPoint $proceedingJoinPoint)
 	{
-	    if (Hope::isProduct()) {
+	    if (Hope::isProduct() || !file_exists(self::SOAR_PATH)) {
             return $proceedingJoinPoint->process();
         }
 

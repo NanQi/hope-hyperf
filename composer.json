@@ -23,7 +23,8 @@
         "hyperf/db-connection": "~2.0.0",
         "lcobucci/jwt": "^3.3",
         "ext-json": "*",
-        "ext-redis": "*"
+        "ext-redis": "*",
+        "hyperf/cache": "^2.0@dev"
     },
     "require-dev": {
         "ext-json": "*",

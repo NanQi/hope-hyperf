@@ -40,7 +40,14 @@ class JwtService extends BaseService {
         $this->sign_key = env('JWT_SECRET', 'NanQi');
     }
 
-    public function getToken($uid, $issuedAt = null, $ttl = null)
+    /**
+     * 获取JWT
+     * @param int $uid 用户ID
+     * @param int $issuedAt 截止时间
+     * @param int $ttl 过期时间
+     * @return string jwt
+     */
+    public function getToken(int $uid, int $issuedAt = null, int $ttl = null) : string
     {
         $issuedAt = $issuedAt ?? time();
         $token_ttl = env('JWT_TTL', 1440);
@@ -64,6 +71,10 @@ class JwtService extends BaseService {
         }
     }
 
+    /**
+     * 检查Token并返回用户ID
+     * @return bool|int
+     */
     public function checkToken()
     {
         $headerToken = $this->parse();
