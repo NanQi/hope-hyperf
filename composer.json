@@ -22,7 +22,8 @@
         "hyperf/circuit-breaker": "^2.0",
         "hyperf/db-connection": "~2.0.0",
         "lcobucci/jwt": "^3.3",
-        "ext-json": "*"
+        "ext-json": "*",
+        "ext-redis": "*"
     },
     "require-dev": {
         "ext-json": "*",
@@ -39,6 +40,9 @@
     "autoload": {
         "psr-4": {
             "NanQi\\Hope\\": "src/"
-        }
+        },
+        "files": [
+            "src/functions.php"
+        ]
     }
 }
