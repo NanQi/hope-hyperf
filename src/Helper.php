@@ -7,6 +7,8 @@ namespace NanQi\Hope;
 use Hyperf\Cache\CacheManager;
 use Hyperf\Contract\StdoutLoggerInterface;
 use Hyperf\Di\Annotation\Inject;
+use Hyperf\HttpServer\Contract\RequestInterface;
+use Hyperf\HttpServer\Contract\ResponseInterface;
 use Hyperf\Redis\RedisFactory;
 use Hyperf\Redis\RedisProxy;
 use Hyperf\Utils\ApplicationContext;
@@ -30,13 +32,41 @@ trait Helper
     /**
      * 获取Redis
      * @param $name
-     * @return RedisProxy|\Redis
+     * @return RedisProxy
      */
-    public function getRedis($name = null) : RedisProxy
+    public function getRedis($name = 'default') : RedisProxy
     {
         /** @var RedisFactory $redisFactory */
         $redisFactory = di(RedisFactory::class);
         return $redisFactory->get($name);
+    }
+
+    /**
+     * 获取请求对象
+     * @return RequestInterface
+     */
+    public function getRequest() : RequestInterface
+    {
+        return di(RequestInterface::class);
+    }
+
+    /**
+     * 获取响应对象
+     * @return ResponseInterface
+     */
+    public function getResponse() : ResponseInterface
+    {
+        return di(ResponseInterface::class);
+    }
+
+    /**
+     * 是否生产环境
+     * @return bool
+     */
+    public function isProduct() : bool
+    {
+        $appEnv = env('APP_ENV', 'dev');
+        return $appEnv == 'prod';
     }
 
     /**

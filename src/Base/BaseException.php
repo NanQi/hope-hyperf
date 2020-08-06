@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 
-namespace App\Exception;
+namespace NanQi\Hope\Base;
 
 use Hyperf\Server\Exception\ServerException;
 

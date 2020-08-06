@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace NanQi\Hope\Exception\Handler;
 
-use App\Exception\BaseException;
+use Hyperf\Utils\Str;
+use NanQi\Hope\Base\BaseException;
 use NanQi\Hope\Constants\StatusCodeConstants;
 use Hyperf\Validation\ValidationException;
 use Psr\Http\Message\ResponseInterface;
@@ -22,6 +23,20 @@ class AppExceptionHandler extends BaseExceptionHandler
             $this->logger->error($throwable->getTraceAsString());
         }
 
-        return $this->errorResponse($response, StatusCodeConstants::S_500_SERVER_ERROR, $throwable->getMessage());
+        return $this->errorResponse($response,
+            StatusCodeConstants::S_500_SERVER_ERROR,
+            $throwable->getMessage(),
+            $throwable->getTrace());
+    }
+
+    public function isValid(Throwable $throwable): bool
+    {
+        $request = $this->getRequest();
+        $accepts = $request->getHeaderLine('accept');
+        if (Str::contains($accepts, 'text/html') && $request->isMethod('GET')) {
+            return false;
+        } else {
+            return true;
+        }
     }
 }

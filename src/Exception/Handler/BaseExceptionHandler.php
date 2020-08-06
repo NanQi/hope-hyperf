@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace NanQi\Hope\Exception\Handler;
 
 use NanQi\Hope\Constants\StatusCodeConstants;
+use NanQi\Hope\Helper;
 use NanQi\Hope\Traits\ResponseFormatTrait;
 use Hyperf\Contract\StdoutLoggerInterface;
 use Hyperf\ExceptionHandler\ExceptionHandler;
@@ -14,7 +15,7 @@ use Throwable;
 
 class BaseExceptionHandler extends ExceptionHandler
 {
-    use ResponseFormatTrait;
+    use Helper;
     /**
      * @var StdoutLoggerInterface
      */
@@ -33,7 +34,7 @@ class BaseExceptionHandler extends ExceptionHandler
     protected function errorResponse(ResponseInterface $response,
                                      int $statusCode,
                                      string $errorMessage,
-                                     object $data = null,
+                                     $data = null,
                                      int $errorCode = 0)
     {
         return $response

@@ -12,7 +12,10 @@ use NanQi\Hope\Helper;
 
 trait ResponseFormatTrait {
 
-    public function errorFormat(int $statusCode, string $errorMessage, object $data = null, int $errorCode = 0) {
+    public function errorFormat(int $statusCode,
+                                string $errorMessage,
+                                $data = null,
+                                int $errorCode = 0) {
         if ($errorCode === 0) {
             $errorCode = $statusCode;
         }
@@ -37,7 +40,7 @@ trait ResponseFormatTrait {
     public function retError(int $errorCode, string $errorMessage = null)
     {
         /** @var ErrorCodeConstants $errorCodeConstants */
-        $errorCodeConstants = ApplicationContext::getContainer()->get(ErrorCodeConstants::class);
+        $errorCodeConstants = di(ErrorCodeConstants::class);
         if (!$errorMessage && $errorCodeConstants) {
             $errorMessage = $errorCodeConstants::getMessage($errorCode);
         }
@@ -46,14 +49,20 @@ trait ResponseFormatTrait {
             $errorMessage, $errorCode);
     }
 
+    public function errorStatusCode(int $statusCode)
+    {
+        throw new BusinessException($statusCode,
+            StatusCodeConstants::getMessage($statusCode),
+            $statusCode);
+    }
+
     /**
      * Return a 404 not found error.
      * @return void
      */
     public function errorNotFound()
     {
-        $this->retError(StatusCodeConstants::S_404_NOT_FOUND,
-            StatusCodeConstants::getMessage(StatusCodeConstants::S_404_NOT_FOUND));
+        $this->errorStatusCode(StatusCodeConstants::S_404_NOT_FOUND);
     }
 
     /**
@@ -62,17 +71,15 @@ trait ResponseFormatTrait {
      */
     public function errorForbidden()
     {
-        $this->retError(StatusCodeConstants::S_403_FORBIDDEN,
-            StatusCodeConstants::getMessage(StatusCodeConstants::S_403_FORBIDDEN));
+        $this->errorStatusCode(StatusCodeConstants::S_403_FORBIDDEN);
     }
 
     /**
      * Return a 401 unauthorized error.
      * @return void
      */
-    public function errorUnauthorized($message = 'Unauthorized')
+    public function errorUnauthorized()
     {
-        $this->retError(StatusCodeConstants::S_401_UNAUTHORIZED,
-            StatusCodeConstants::getMessage(StatusCodeConstants::S_401_UNAUTHORIZED));
+        $this->errorStatusCode(StatusCodeConstants::S_401_UNAUTHORIZED);
     }
 }

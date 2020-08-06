@@ -12,6 +12,7 @@ use Hyperf\Di\Exception\Exception;
 use Hyperf\HttpMessage\Stream\SwooleStream;
 use Hyperf\HttpServer\Response;
 use Hyperf\Utils\Context;
+use NanQi\Hope\Helper;
 use NanQi\Hope\Hope;
 use NanQi\Hope\Listener\QueryExecListener;
 use Swoole\Coroutine\Channel;
@@ -21,6 +22,8 @@ use Swoole\Coroutine\Channel;
  */
 class ResponseAspect extends AbstractAspect
 {
+    use Helper;
+
 	public $classes = [
 	    Response::class . '::json'
 	];
@@ -64,7 +67,7 @@ class ResponseAspect extends AbstractAspect
 	 */
 	public function process(ProceedingJoinPoint $proceedingJoinPoint)
 	{
-	    if (Hope::isProduct() || !file_exists(self::SOAR_PATH)) {
+	    if ($this->isProduct() || !file_exists(self::SOAR_PATH)) {
             return $proceedingJoinPoint->process();
         }
 

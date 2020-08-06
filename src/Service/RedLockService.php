@@ -93,7 +93,7 @@ class RedLockService extends BaseService {
     {
         if (empty($this->instances)) {
             foreach ($this->servers as $server) {
-                $this->instances[] = Hope::getRedis($server);
+                $this->instances[] = $this->getRedis($server);
             }
         }
     }

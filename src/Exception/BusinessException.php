@@ -5,7 +5,7 @@ declare(strict_types=1);
 
 namespace NanQi\Hope\Exception;
 
-use Hyperf\Server\Exception\ServerException;
+use NanQi\Hope\Base\BaseException;
 
 /**
  * Class BusinessException
@@ -14,7 +14,7 @@ use Hyperf\Server\Exception\ServerException;
  * @var int $errorCode
  * @package App\Exception
  */
-class BusinessException extends ServerException
+class BusinessException extends BaseException
 {
     /**
      * @var int

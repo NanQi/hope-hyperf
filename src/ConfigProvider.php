@@ -3,11 +3,14 @@
 namespace NanQi\Hope;
 
 use Hyperf\Contract\StdoutLoggerInterface;
+use Hyperf\ExceptionHandler\Handler\WhoopsExceptionHandler;
+use Hyperf\ExceptionHandler\Listener\ErrorExceptionHandler;
 use Hyperf\HttpServer\Exception\Handler\HttpExceptionHandler;
 use Hyperf\Server\CoroutineServer;
 use Hyperf\Validation\Middleware\ValidationMiddleware;
 use NanQi\Hope\Aspect\ResponseAspect;
 use NanQi\Hope\Exception\Handler\AppExceptionHandler;
+use NanQi\Hope\Exception\Handler\BusinessExceptionHandler;
 use NanQi\Hope\Exception\Handler\ValidationExceptionHandler;
 use NanQi\Hope\Overwrite\StdoutLogger;
 
@@ -30,7 +33,9 @@ class ConfigProvider
                 ],
             ],
             'commands' => [],
-            'listeners' => [],
+            'listeners' => [
+                ErrorExceptionHandler::class
+            ],
             'middlewares' => [
                 'http' => [
                     ValidationMiddleware::class
@@ -39,9 +44,11 @@ class ConfigProvider
             'exceptions' => [
                 'handler' => [
                     'http' => [
+                        BusinessExceptionHandler::class,
                         HttpExceptionHandler::class,
-                        AppExceptionHandler::class,
                         ValidationExceptionHandler::class,
+                        WhoopsExceptionHandler::class,
+                        AppExceptionHandler::class,
                     ],
                 ],
             ]
