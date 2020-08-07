@@ -31,7 +31,7 @@ class AppExceptionHandler extends BaseExceptionHandler
 
     public function isValid(Throwable $throwable): bool
     {
-        $request = $this->getRequest();
+        $request = $this->getReq();
         $accepts = $request->getHeaderLine('accept');
         if (Str::contains($accepts, 'text/html') && $request->isMethod('GET')) {
             return false;
