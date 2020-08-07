@@ -45,7 +45,7 @@ trait Helper
      * 获取请求对象
      * @return RequestInterface
      */
-    public function getRequest() : RequestInterface
+    public function getReq() : RequestInterface
     {
         return di(RequestInterface::class);
     }
@@ -54,7 +54,7 @@ trait Helper
      * 获取响应对象
      * @return ResponseInterface
      */
-    public function getResponse() : ResponseInterface
+    public function getRes() : ResponseInterface
     {
         return di(ResponseInterface::class);
     }
@@ -73,16 +73,10 @@ trait Helper
      * 获取日志
      * @return StdoutLoggerInterface
      */
-    public function getLogger() : StdoutLoggerInterface
+    public function getLog() : StdoutLoggerInterface
     {
-        /**
-         * @var StdoutLoggerInterface $logger
-         */
-        $logger = di(StdoutLoggerInterface::class);
-        return $logger;
+        return di(StdoutLoggerInterface::class);
     }
-
-
 
     /**
      * 获取授权用户ID

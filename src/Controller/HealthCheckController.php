@@ -7,7 +7,6 @@ namespace NanQi\Hope\Controller;
 use NanQi\Hope\Base\BaseController;
 use Hyperf\HttpServer\Annotation\Controller;
 use Hyperf\HttpServer\Annotation\RequestMapping;
-use NanQi\Hope\Hope;
 
 /**
  * @Controller()

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace NanQi\Hope\Service;
 
 use NanQi\Hope\Base\BaseService;
-use NanQi\Hope\Hope;
 use Hyperf\Contract\ConfigInterface;
 
 class RedLockService extends BaseService {

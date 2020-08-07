@@ -13,7 +13,6 @@ use Hyperf\HttpMessage\Stream\SwooleStream;
 use Hyperf\HttpServer\Response;
 use Hyperf\Utils\Context;
 use NanQi\Hope\Helper;
-use NanQi\Hope\Hope;
 use NanQi\Hope\Listener\QueryExecListener;
 use Swoole\Coroutine\Channel;
 

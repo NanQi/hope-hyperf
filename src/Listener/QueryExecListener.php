@@ -20,7 +20,6 @@ use Hyperf\Utils\Arr;
 use Hyperf\Utils\Context;
 use Hyperf\Utils\Str;
 use NanQi\Hope\Helper;
-use NanQi\Hope\Hope;
 
 /**
  * @Listener
