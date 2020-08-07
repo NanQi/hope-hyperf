@@ -19,6 +19,7 @@ use Hyperf\Event\Contract\ListenerInterface;
 use Hyperf\Utils\Arr;
 use Hyperf\Utils\Context;
 use Hyperf\Utils\Str;
+use NanQi\Hope\Helper;
 use NanQi\Hope\Hope;
 
 /**
@@ -26,6 +27,8 @@ use NanQi\Hope\Hope;
  */
 class QueryExecListener implements ListenerInterface
 {
+    use Helper;
+
 	public function listen() : array
 	{
 		return [
@@ -38,7 +41,7 @@ class QueryExecListener implements ListenerInterface
 	 */
 	public function process(object $event) : void
 	{
-	    $isProd = Hope::isProduct();
+	    $isProd = $this->isProduct();
 		if ($event instanceof QueryExecuted && !$isProd) {
             $sql = $event->sql;
             if (! Arr::isAssoc($event->bindings)) {
