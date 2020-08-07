@@ -4,11 +4,9 @@ declare(strict_types=1);
 
 namespace NanQi\Hope\Traits;
 
-use Hyperf\Utils\ApplicationContext;
 use NanQi\Hope\Constants\ErrorCodeConstants;
 use NanQi\Hope\Constants\StatusCodeConstants;
 use NanQi\Hope\Exception\BusinessException;
-use NanQi\Hope\Helper;
 
 trait ResponseFormatTrait {
 
@@ -49,37 +47,44 @@ trait ResponseFormatTrait {
             $errorMessage, $errorCode);
     }
 
-    public function errorStatusCode(int $statusCode)
+    public function errorStatusCode(int $statusCode, string $message = null)
     {
+        if (!$message) {
+            $message = StatusCodeConstants::getMessage($statusCode);
+        }
+
         throw new BusinessException($statusCode,
-            StatusCodeConstants::getMessage($statusCode),
+            $message,
             $statusCode);
     }
 
     /**
      * Return a 404 not found error.
+     * @param string|null $message
      * @return void
      */
-    public function errorNotFound()
+    public function errorNotFound(string $message = null)
     {
-        $this->errorStatusCode(StatusCodeConstants::S_404_NOT_FOUND);
+        $this->errorStatusCode(StatusCodeConstants::S_404_NOT_FOUND, $message);
     }
 
     /**
      * Return a 403 forbidden error.
+     * @param string|null $message
      * @return void
      */
-    public function errorForbidden()
+    public function errorForbidden(string $message = null)
     {
-        $this->errorStatusCode(StatusCodeConstants::S_403_FORBIDDEN);
+        $this->errorStatusCode(StatusCodeConstants::S_403_FORBIDDEN, $message);
     }
 
     /**
      * Return a 401 unauthorized error.
+     * @param string $message
      * @return void
      */
-    public function errorUnauthorized()
+    public function errorUnauthorized(string $message = null)
     {
-        $this->errorStatusCode(StatusCodeConstants::S_401_UNAUTHORIZED);
+        $this->errorStatusCode(StatusCodeConstants::S_401_UNAUTHORIZED, $message);
     }
 }

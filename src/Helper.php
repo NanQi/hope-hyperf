@@ -5,20 +5,16 @@ namespace NanQi\Hope;
 
 
 use Hyperf\Cache\CacheManager;
+use Hyperf\Cache\Driver\DriverInterface;
 use Hyperf\Contract\StdoutLoggerInterface;
 use Hyperf\Di\Annotation\Inject;
 use Hyperf\HttpServer\Contract\RequestInterface;
 use Hyperf\HttpServer\Contract\ResponseInterface;
 use Hyperf\Redis\RedisFactory;
 use Hyperf\Redis\RedisProxy;
-use Hyperf\Utils\ApplicationContext;
-use NanQi\Hope\Constants\ErrorCodeConstants;
-use NanQi\Hope\Constants\StatusCodeConstants;
-use NanQi\Hope\Exception\BusinessException;
 use NanQi\Hope\Service\JwtService;
 use NanQi\Hope\Traits\ResponseFormatTrait;
 use Psr\Container\ContainerInterface;
-use Psr\SimpleCache\CacheInterface;
 
 trait Helper
 {
@@ -39,6 +35,20 @@ trait Helper
         /** @var RedisFactory $redisFactory */
         $redisFactory = di(RedisFactory::class);
         return $redisFactory->get($name);
+    }
+
+    /**
+     * 获取业务redis对象
+     * @return RedisProxy
+     */
+    public function getRedisBusiness() : RedisProxy
+    {
+        $redis = $this->getRedis('business');
+        if (!$redis) {
+            $this->errorNotFound('未找到配置的业务redis');
+        }
+
+        return $redis;
     }
 
     /**
@@ -87,7 +97,7 @@ trait Helper
         $jwtService = di(JwtService::class);
         $user_id = $jwtService->checkToken();
         if ($user_id === false) {
-            $this->errorUnauthorized();
+            return 0;
         }
 
         return $user_id;
@@ -105,21 +115,9 @@ trait Helper
     /**
      * 获取全局缓存
      */
-    public function getArrayCache() : CacheInterface
+    public function getArrayCache() : DriverInterface
     {
-        /** @var CacheManager $cacheManager */
         $cacheManager = di(CacheManager::class);
-        $cache = $cacheManager->getDriver('array');
-        return $cache;
-    }
-
-    /**
-     * 获取缓存对象
-     */
-    public function getCache() : CacheInterface
-    {
-        /** @var CacheInterface $cache */
-        $cache = di(CacheInterface::class);
-        return $cache;
+        return $cacheManager->getDriver('array');
     }
 }
