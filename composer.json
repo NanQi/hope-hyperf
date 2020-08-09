@@ -18,13 +18,13 @@
         "hyperf/redis": "~2.0.0",
         "hyperf/constants": "^2.0",
         "hyperf/validation": "^2.0",
-        "hyperf/metric": "^2.0",
         "hyperf/circuit-breaker": "^2.0",
         "hyperf/db-connection": "~2.0.0",
         "lcobucci/jwt": "^3.3",
+        "hyperf/cache": "~2.0.0",
+        "hyperf/async-queue": "^2.0",
         "ext-json": "*",
-        "ext-redis": "*",
-        "hyperf/cache": "^2.0@dev"
+        "ext-redis": "*"
     },
     "require-dev": {
         "ext-json": "*",
@@ -32,7 +32,8 @@
         "orchestra/testbench": "^5",
         "filp/whoops": "^2.7",
         "guanguans/soar-php": "^2.0",
-        "fideloper/proxy": "^4.2"
+        "fideloper/proxy": "^4.2",
+        "fzaninotto/faker": "^1.9"
     },
     "extra": {
         "hyperf": {

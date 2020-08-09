@@ -11,8 +11,9 @@ use Hyperf\Validation\Middleware\ValidationMiddleware;
 use NanQi\Hope\Aspect\ResponseAspect;
 use NanQi\Hope\Exception\Handler\AppExceptionHandler;
 use NanQi\Hope\Exception\Handler\BusinessExceptionHandler;
+use NanQi\Hope\Exception\Handler\NotFoundExceptionHandler;
 use NanQi\Hope\Exception\Handler\ValidationExceptionHandler;
-use NanQi\Hope\Overwrite\StdoutLogger;
+use NanQi\Hope\Di\StdoutLogger;
 
 class ConfigProvider
 {
@@ -45,6 +46,7 @@ class ConfigProvider
                 'handler' => [
                     'http' => [
                         BusinessExceptionHandler::class,
+                        NotFoundExceptionHandler::class,
                         HttpExceptionHandler::class,
                         ValidationExceptionHandler::class,
                         WhoopsExceptionHandler::class,

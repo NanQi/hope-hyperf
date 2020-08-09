@@ -4,6 +4,8 @@
 namespace NanQi\Hope;
 
 
+use Faker\Factory;
+use Faker\Generator;
 use Hyperf\Cache\CacheManager;
 use Hyperf\Cache\Driver\DriverInterface;
 use Hyperf\Contract\StdoutLoggerInterface;
@@ -67,6 +69,15 @@ trait Helper
     public function getRes() : ResponseInterface
     {
         return di(ResponseInterface::class);
+    }
+
+    /**
+     * 获取假数据构造器
+     * @return Generator
+     */
+    public function getFaker() : Generator
+    {
+        return Factory::create('zh_CN');
     }
 
     /**

@@ -1,7 +1,7 @@
 <?php
 
 
-namespace NanQi\Hope\Overwrite;
+namespace NanQi\Hope\Di;
 
 
 class StdoutLogger extends \Hyperf\Framework\Logger\StdoutLogger
