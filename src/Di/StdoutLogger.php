@@ -4,10 +4,14 @@
 namespace NanQi\Hope\Di;
 
 
+use Psr\Log\LogLevel;
+
 class StdoutLogger extends \Hyperf\Framework\Logger\StdoutLogger
 {
-    public function error($message, array $context = [])
+    protected function getMessage(string $message, string $level = LogLevel::INFO, array $tags)
     {
-        parent::error($message, $context);
+        $msg =  parent::getMessage($message, $level, $tags);
+        $date = date('Y-m-d H:i:s');
+        return  "[{$date}] $msg";
     }
 }
