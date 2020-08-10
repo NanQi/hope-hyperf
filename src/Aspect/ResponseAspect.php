@@ -27,37 +27,6 @@ class ResponseAspect extends AbstractAspect
 	    Response::class . '::json'
 	];
 
-	const SOAR_PATH = "vendor/bin/soar";
-
-    /**
-     * @var Soar
-     */
-	protected $soar;
-
-	public function __construct()
-    {
-        $config = [
-            // 下载的 soar 的路径
-            '-soar-path' => self::SOAR_PATH,
-            // 测试环境配置
-            '-test-dsn' => [
-                'host' => env('DB_HOST', 'localhost'),
-                'port' => env('DB_PORT', 3306),
-                'dbname' => env('DB_DATABASE', 'hope'),
-                'username' => env('DB_USERNAME', 'homestead'),
-                'password' => env('DB_PASSWORD', 'secret'),
-            ],
-            // 日志输出文件
-            '-log-output' => './soar.log',
-            // 报告输出格式: 默认  markdown [markdown, html, json]
-            '-report-type' => 'json',
-        ];
-        try {
-            $this->soar = new Soar($config);
-        } catch (InvalidConfigException $e) {
-        }
-    }
-
     /**
 	 * @param ProceedingJoinPoint $proceedingJoinPoint
 	 *
@@ -66,10 +35,6 @@ class ResponseAspect extends AbstractAspect
 	 */
 	public function process(ProceedingJoinPoint $proceedingJoinPoint)
 	{
-	    if ($this->isProduct() || !file_exists(self::SOAR_PATH)) {
-            return $proceedingJoinPoint->process();
-        }
-
 		$sqlKey = class_basename(QueryExecListener::class);
 
 		if (!Context::has($sqlKey)) {
@@ -78,24 +43,10 @@ class ResponseAspect extends AbstractAspect
 
 		$eventSqlList = Context::get($sqlKey);
 
-		$explains = [];
-		$channel  = new Channel();
+        $response = $proceedingJoinPoint->process();
 
-		foreach ($eventSqlList as $sql) {
-			co(function () use ($sql, $channel) {
-				$explain = [];
-				$soar    = $this->soar->score($sql);
-                $explain['sql']     = $sql;
-                $explain['explain'] = json_decode($soar, true);
-				$channel->push($explain);
-			});
-			$explains[] = $channel->pop();
-		}
-
-		$response = $proceedingJoinPoint->process();
-
-		$oldBody = json_decode($response->getBody()->getContents(), true);
-		$newBody = json_encode(array_merge($oldBody, ['soar' => $explains]), \JSON_UNESCAPED_UNICODE);
+        $oldBody = json_decode($response->getBody()->getContents(), true);
+        $newBody = json_encode(array_merge($oldBody, ['_sql' => $eventSqlList]), \JSON_UNESCAPED_UNICODE);
 
 		return $response->withBody(new SwooleStream($newBody));
 	}

@@ -7,7 +7,7 @@ namespace NanQi\Hope;
 use Faker\Factory;
 use Faker\Generator;
 use Hyperf\Cache\CacheManager;
-use Hyperf\Cache\Driver\DriverInterface;
+use Hyperf\Cache\Driver\CoroutineMemoryDriver;
 use Hyperf\Contract\StdoutLoggerInterface;
 use Hyperf\Di\Annotation\Inject;
 use Hyperf\HttpServer\Contract\RequestInterface;
@@ -126,9 +126,11 @@ trait Helper
     /**
      * 获取全局缓存
      */
-    public function getArrayCache() : DriverInterface
+    public function getArrayCache() : CoroutineMemoryDriver
     {
         $cacheManager = di(CacheManager::class);
         return $cacheManager->getDriver('array');
     }
+
+
 }

@@ -13,12 +13,6 @@ abstract class BaseRequest extends FormRequest
 {
     use Helper;
 
-    /**
-     * @Inject
-     * @var RequestInterface
-     */
-    protected $request;
-
     public function authorize(): bool
     {
         return true;

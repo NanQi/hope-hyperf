@@ -18,7 +18,7 @@ class BusinessExceptionHandler extends BaseExceptionHandler
         /**
          * @var BusinessException $throwable
          */
-        return $this->errorResponse($response, $throwable->statusCode, $throwable->errorMessage);
+        return $this->errorResponse($response, $throwable->statusCode, $throwable->errorMessage, null, $throwable->errorCode);
     }
 
     public function isValid(Throwable $throwable): bool

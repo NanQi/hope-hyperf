@@ -5,7 +5,7 @@ namespace NanQi\Hope\Queue;
 
 use Hyperf\AsyncQueue\Job;
 
-class JobProducer extends Job
+class JobConsumer extends Job
 {
     public function handle()
     {
